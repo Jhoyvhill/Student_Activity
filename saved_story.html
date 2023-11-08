@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Saved Story - TEXTOPDIA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        section {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+
+        p {
+            margin: 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Saved Story</h1>
+        <section>
+            <?php
+                // PHP code to retrieve and display the submitted data from query parameters
+                if (isset($_GET['title']) && isset($_GET['name']) && isset($_GET['exposition']) &&
+                    isset($_GET['conflict']) && isset($_GET['rising_action']) && isset($_GET['climax']) &&
+                    isset($_GET['falling_action']) && isset($_GET['denouement'])) {
+                    
+                    $title = htmlspecialchars($_GET['title']);
+                    $name = htmlspecialchars($_GET['name']);
+                    $exposition = htmlspecialchars($_GET['exposition']);
+                    $conflict = htmlspecialchars($_GET['conflict']);
+                    $rising_action = htmlspecialchars($_GET['rising_action']);
+                    $climax = htmlspecialchars($_GET['climax']);
+                    $falling_action = htmlspecialchars($_GET['falling_action']);
+                    $denouement = htmlspecialchars($_GET['denouement']);
+
+                    echo "<h2>$title</h2>";
+                    echo "<p><strong>Submitted by:</strong> $name</p>";
+                    echo "<p><strong>Exposition:</strong> $exposition</p>";
+                    echo "<p><strong>Conflict:</strong> $conflict</p>";
+                    echo "<p><strong>Rising Action:</strong> $rising_action</p>";
+                    echo "<p><strong>Climax:</strong> $climax</p>";
+                    echo "<p><strong>Falling Action:</strong> $falling_action</p>";
+                    echo "<p><strong>Denouement:</strong> $denouement</p>";
+                } else {
+                    echo "<p>Invalid or missing data.</p>";
+                }
+            ?>
+        </section>
+    </div>
+</body>
+</html>

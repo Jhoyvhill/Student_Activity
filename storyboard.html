@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Storyboard Activity - TEXTOPDIA</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+        }
+
+        .container {
+            width: 80%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+        }
+
+        form {
+            border: 1px solid #ccc;
+            padding: 20px;
+            border-radius: 5px;
+        }
+
+        label {
+            font-weight: bold;
+        }
+
+        input[type="text"] {
+            width: 100%;
+            padding: 10px;
+            margin: 5px 0;
+            border: 1px solid #ccc;
+            border-radius: 3px;
+        }
+
+        input[type="submit"] {
+            background-color: #3498db;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            cursor: pointer;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Fill out the Storyboard</h1>
+        <form id="storyForm">
+            <label for="title">Story Title:</label>
+            <input type="text" id="title" name="title" required>
+            <label for="name">Your Name:</label>
+            <input type="text" id="name" name="name" required>
+            <label for="exposition">Exposition:</label>
+            <input type="text" id="exposition" name="exposition" required>
+            <label for="conflict">Conflict:</label>
+            <input type="text" id="conflict" name="conflict" required>
+            <label for="rising_action">Rising Action:</label>
+            <input type="text" id="rising_action" name="rising_action" required>
+            <label for="climax">Climax:</label>
+            <input type="text" id="climax" name="climax" required>
+            <label for="falling_action">Falling Action:</label>
+            <input type="text" id="falling_action" name="falling_action" required>
+            <label for="denouement">Denouement:</label>
+            <input type="text" id="denouement" name="denouement" required>
+            <input type="submit" value="Submit">
+        </form>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            const storyForm = document.getElementById("storyForm");
+
+            storyForm.addEventListener("submit", function(e) {
+                e.preventDefault(); // Prevent the default form submission behavior
+
+                // Create an object with the form data
+                const storyData = {
+                    title: storyForm.title.value,
+                    name: storyForm.name.value,
+                    exposition: storyForm.exposition.value,
+                    conflict: storyForm.conflict.value,
+                    rising_action: storyForm.rising_action.value,
+                    climax: storyForm.climax.value,
+                    falling_action: storyForm.falling_action.value,
+                    denouement: storyForm.denouement.value,
+                };
+
+                // Read the existing data from saved_story.json (if any)
+                fetch('saved_story.json')
+                    .then(response => response.json())
+                    .then(existingData => {
+                        // Append the new story data to the existing data
+                        const updatedData = existingData || [];
+                        updatedData.push(storyData);
+
+                        // Save the updated data back to saved_story.json
+                        fetch('saved_story.json', {
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                            },
+                            body: JSON.stringify(updatedData),
+                        })
+                            .then(() => {
+                                alert('Story submitted successfully!');
+                                storyForm.reset(); // Reset the form
+                            })
+                            .catch(error => {
+                                console.error('Error:', error);
+                                alert('Failed to submit the story.');
+                            });
+                    })
+                    .catch(error => {
+    			console.error('Error:', error);
+    			alert('Failed to submit the story: ' + error.message);
+                    });
+            });
+        });
+    </script>
+</body>
+</html>
